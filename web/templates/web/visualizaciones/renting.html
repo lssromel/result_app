@@ -3,12 +3,21 @@
     <head>  
         <meta charset="utf-8"/>  
         <title>Web Result App</title>  
+        <meta charset="utf-8"/> 
+        <meta name="csrf-token" content="{{ csrf_token}}">
         </head>  
     <body>
-	<p> Bienvenido a la Plataforma, sus visualizaciones </p>
+	<p> Bienvenido a la Plataforma, sus visualizaciones :</p>
 
-<a target="_blank" href="/visualizacionPNG/?nombre=combustible">combustible</a>
-<a target="_blank" href="/visualizacionHTML/?nombre=consultoria">consultoria</a>
+<BR><a target="_blank" href="/visualizacionPNG/?nombre=combustible">1. combustible</a>
+<BR><BR><a target="_blank" href="/visualizacionHTML/?nombre=consultoria">2. consultoria</a>
+
+
+
+<!--<form name="logout_form" action="http://127.0.0.1:8000/logout_user"
+#onsubmit="return validateForm()" method="post">
+#<BR><input type="submit" value="Logout">
+#</form> -->
 
     </body>  
 </html>  
