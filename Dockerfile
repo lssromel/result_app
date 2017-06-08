@@ -1,0 +1,19 @@
+From ubuntu:16.04
+MAINTAINER Romel Barrios <lssromel@outlook.com>
+
+EXPOSE 5010
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	python-dev \ 
+	python-pip \
+	git \
+	vim \
+	build-essential
+RUN apt-get install iputils-ping -y
+RUN apt-get install net-tools -y
+RUN pip install -U pip
+RUN pip install django djangorestframework pymongo requests 
+WORKDIR /workspace
+RUN mkdir -p /data/db
+RUN git clone https://github.com/lssromel/result_app.git
+WORKDIR /workspace/result_app .
