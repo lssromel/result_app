@@ -45,18 +45,18 @@ def login_user(request):
     else:
         return render_to_response('web/index.html')
 
-@login_required
+@login_required(login_url='/')
 def logout_user(request):
     logout(request)
     return HttpResponse("Logout Ok")
 
-@login_required
+@login_required(login_url='/')
 def visualizacionPNG(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
     image_data = open(os.getcwd()+"/web/templates/web/data/"+username+"/"+nombre+".png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
-@login_required
+@login_required(login_url='/')
 def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
