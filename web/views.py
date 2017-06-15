@@ -60,6 +60,6 @@ def visualizacionPNG(request):
 def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    return render(request, 'web/data/'+username+'/'+nombre+'.html')
+    return render_to_response(request, 'web/data/'+username+'/'+nombre+'.html')
 
 
