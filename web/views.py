@@ -16,6 +16,9 @@ import os
 from django.http import HttpResponse
 from .forms import LoginForm
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
+
+
 # Create your views here.
 
 class InicioView(TemplateView):
@@ -39,14 +42,14 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponse("Logout Ok")
-@never_cache
+@cache_page(1)
 @login_required(login_url='/')
 def visualizacionPNG(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
     image_data = open(os.getcwd()+"/web/templates/web/data/"+username+"/"+nombre+".png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
-@never_cache
+@cache_page(1)
 @login_required(login_url='/')
 def visualizacionHTML(request):
     username = request.user.username
