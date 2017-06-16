@@ -47,9 +47,11 @@ def visualizacionPNG(request):
     image_data = open(os.getcwd()+"/web/templates/web/data/"+username+"/"+nombre+".png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
 @login_required(login_url='/')
-def visualizacionHTML(request):
+#def visualizacionHTML(request):
+class visualizacionHTML(TemplateView):
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    return render(request,'web/data/'+username+'/'+nombre+'.html')
+    template_name='web/data/'+username+'/'+nombre+'.html'
+    #return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
