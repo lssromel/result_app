@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.views.decorators.cache import never_cache
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect
@@ -39,13 +39,14 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponse("Logout Ok")
-
+@never_cache
 @login_required(login_url='/')
 def visualizacionPNG(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
     image_data = open(os.getcwd()+"/web/templates/web/data/"+username+"/"+nombre+".png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
+@never_cache
 @login_required(login_url='/')
 def visualizacionHTML(request):
     username = request.user.username
