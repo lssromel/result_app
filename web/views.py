@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 import os
 from django.http import HttpResponse
 from .forms import LoginForm
-
+from django.core.cache import cache
 # Create your views here.
 
 class InicioView(TemplateView):
