@@ -17,7 +17,6 @@ from django.http import HttpResponseRedirect
 import os
 from django.http import HttpResponse
 from .forms import LoginForm
-from django.template.loader import template_source_loaders
 
 
 
@@ -62,8 +61,6 @@ def visualizacionPNG(request):
     return HttpResponse(image_data, content_type="image/png")
 @login_required(login_url='/')
 def visualizacionHTML(request):
-    loader = template_source_loaders[0]
-    loader.reset()
     username = request.user.username
     nombre   = request.GET.get("nombre")
     return render(request,'web/data/'+username+'/'+nombre+'.html')
