@@ -18,6 +18,7 @@ import os
 from django.http import HttpResponse
 from .forms import LoginForm
 from django.template import Context, Template
+import unicodedata
 
 
 
@@ -53,13 +54,15 @@ def visualizacionPNG(request):
     return HttpResponse(image_data, content_type="image/png")
 @login_required(login_url='/')
 def visualizacionHTML(request):
+    def elimina_tildes(s):
+        return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
     username = request.user.username
     nombre   = request.GET.get("nombre")
     archivo_html=open('/workspace/result_app/web/templates/web/data/'+username+'/'+nombre+'.html').read()
+    archivo_html=elimina_tildes(archivo_html)
     template = Template("{{ htmlfile }}")
     context = Context({"htmlfile": archivo_html})
     template.render(context)
-    print template.render(context)
     #return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
