@@ -17,7 +17,7 @@ from django.http import HttpResponseRedirect
 import os
 from django.http import HttpResponse
 from .forms import LoginForm
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
@@ -54,17 +54,16 @@ def logout_user(request):
     return HttpResponse("Logout Ok")
 
 @login_required(login_url='/')
-@cache_page(5)
 def visualizacionPNG(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
     image_data = open(os.getcwd()+"/web/templates/web/data/"+username+"/"+nombre+".png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
 @login_required(login_url='/')
-@cache_page(5)
+@never_cache
 def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    return render_to_response('web/data/'+username+'/'+nombre+'.html')
+    return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
