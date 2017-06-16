@@ -18,12 +18,13 @@ from django.contrib import admin
 from web.views import *
 from django.conf import settings
 #from django.conf.urls.static import static
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('web.urls')),
-    url(r'^visualizacionHTML', visualizacionHTML),
-    url(r'^visualizacionPNG', visualizacionPNG),   
+    url(r'^visualizacionHTML', cache_page(60 * 0)(visualizacionHTML)),
+    url(r'^visualizacionPNG', cache_page(60 * 0)(visualizacionPNG)),   
     url(r'^login_user', login_user),
     url(r'^logout_user',logout_user),
 ]#+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
