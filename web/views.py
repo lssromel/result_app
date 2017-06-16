@@ -59,7 +59,6 @@ def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
     archivo_html=open('/workspace/result_app/web/templates/web/data/'+username+'/'+nombre+'.html').read()
-    archivo_html=elimina_tildes(archivo_html)
     template = Template("{{ htmlfile }}")
     context = Context({"htmlfile": archivo_html})
     template.render(context)
