@@ -55,7 +55,7 @@ def visualizacionPNG(request):
 def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    archivo_html=open("/workspace/result_app/web/data/'+username+'/'+nombre+'.html").read()
+    archivo_html=open('web/data/'+username+'/'+nombre+'.html').read()
     template = Template("{{ htmlfile }}")
     context = Context({"htmlfile": archivo_html})
     template.render(context)
