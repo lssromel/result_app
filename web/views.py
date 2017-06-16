@@ -58,7 +58,8 @@ def visualizacionHTML(request):
     archivo_html=open("web/data/'+username+'/'+nombre+'.html").read()
     template = Template("{{ htmlfile }}")
     context = Context({"htmlfile": archivo_html})
-    return template.render(context)
+    template.render(context)
+    print template.render(context)
     #return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
