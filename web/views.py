@@ -17,6 +17,7 @@ from django.http import HttpResponseRedirect
 import os
 from django.http import HttpResponse
 from .forms import LoginForm
+from django.template import Context, Template
 
 
 
@@ -30,17 +31,8 @@ class InicioView(TemplateView):
 @api_view(['POST'])
 def login_user(request):
     form = LoginForm(request.POST)
-    #if form.is_valid():
-    #    data = form.cleaned_data
-    #print data
-    #username  = html.cgi.escape(form[u"username"].value);
-    #password   = html.cgi.escape(form[u"password"].value);
-    #print request.POST
     username = request.POST.get("user",False)
     password = request.POST.get("pass",False)
-    #print username, password
-    print username
-    print password
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
@@ -63,6 +55,10 @@ def visualizacionPNG(request):
 def visualizacionHTML(request):
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    return render(request,'web/data/'+username+'/'+nombre+'.html')
+    archivo_html=open("web/data/'+username+'/'+nombre+'.html").read()
+    template = Template("{{ htmlfile }}")
+    context = Context({"htmlfile": archivo_html})
+    return template.render(context)
+    #return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
