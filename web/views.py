@@ -11,16 +11,10 @@ from django.contrib.auth.views import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 import html
-import cgi
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
 import os
 from django.http import HttpResponse
 from .forms import LoginForm
-from django.template import Context, Template
-import unicodedata
-
-
 
 # Create your views here.
 
@@ -54,14 +48,8 @@ def visualizacionPNG(request):
     return HttpResponse(image_data, content_type="image/png")
 @login_required(login_url='/')
 def visualizacionHTML(request):
-    def elimina_tildes(s):
-        return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
     username = request.user.username
     nombre   = request.GET.get("nombre")
-    archivo_html=open('/workspace/result_app/web/templates/web/data/'+username+'/'+nombre+'.html').read()
-    template = Template("{{ htmlfile }}")
-    context = Context({"htmlfile": archivo_html})
-    template.render(context)
-    #return render(request,'web/data/'+username+'/'+nombre+'.html')
+    return render(request,'web/data/'+username+'/'+nombre+'.html')
 
 
